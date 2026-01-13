@@ -44,7 +44,7 @@
                                         <!-- Icon yang lebih merepresentasikan "matrix data" -->
                                     </div>
                                     <div class="media-body ms-3">
-                                        <h6 class="mb-0">Matrix Ternormalisasi</h6>
+                                        <h6 class="mb-0">Hasil Perhitungan</h6>
                                     </div>
                                 </div>
                             </a>
@@ -244,7 +244,7 @@
                             <div class="col-xl-12">
                                 <div class="card table-card">
                                     <div class="card-header">
-                                        <h5>Table Matrix Ternormalisasi</h5>
+                                        <h5>Tabel Hasil Perhitungan</h5>
                                         <div class="card-body">
                                             <div class="d-flex justify-content-end align-items-center mb-3">
                                                 <!-- Form Search -->

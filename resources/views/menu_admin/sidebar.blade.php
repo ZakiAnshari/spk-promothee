@@ -1,6 +1,6 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
-        <div class="m-header my-3" style="margin: 0px">
+        <div class="m-header my-3" style="margin: 0px;display: flex; justify-content: center; align-items: center;">
             <div class="auth-header">
                 <div class="container-fluid justify-content-center align-items-center flex-column">
 
@@ -14,14 +14,10 @@
                 </div>
             </div>
         </div>
-
+        <hr>
         <div class="navbar-content">
             <!-- Elemen Tanggal -->
-            <div class="d-flex justify-content-center align-items-center mx-auto px-3 py-2 bg-light rounded shadow-sm mb-3"
-                style="max-width: 350px;">
-                <i class="bi bi-calendar-event me-2 text-primary"></i>
-                <h6 class="mb-0 fw-semibold text-dark" id="tanggal-hari-ini"></h6>
-            </div>
+         
 
             <ul class="pc-navbar">
                 {{-- DASHBOARD --}}

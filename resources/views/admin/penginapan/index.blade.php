@@ -18,17 +18,14 @@
                                 </div>
                             @endif
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <!-- Form Search -->
-
-
                                 <!-- Add User Button -->
                                 <div class="d-flex">
                                     <button type="button" class="btn btn-primary d-flex align-items-center me-2"
                                         data-bs-toggle="modal" data-bs-target="#user-edit_add-modal">
                                         <i class="bx bx-plus me-1"></i> Tambah
                                     </button>
-                                    <a href="" class="btn btn-warning d-flex align-items-center" role="button"
-                                        target="_blank">
+                                    <a href="#" class="btn btn-warning d-flex align-items-center" role="button"
+                                        >
                                         <i class="bx bx-printer me-1"></i> Cetak
                                     </a>
                                 </div>
@@ -182,7 +179,7 @@
                                                     <li class="list-inline-item align-bottom"
                                                         style="border: 1px solid #ccc;" data-bs-toggle="tooltip"
                                                         title="Edit">
-                                                        <a href="penginapan-edit/{{ $item->id }}"
+                                                        <a href="#"
                                                             class="avtar avtar-xs btn-link-primary">
                                                             <i class="ti ti-edit-circle f-18"></i>
                                                         </a>

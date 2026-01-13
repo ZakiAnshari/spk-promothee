@@ -71,7 +71,7 @@ class PerhitunganController extends Controller
 
         return view(
             'admin.perhitungan.cetak',
-            compact('penginapans', 'kriterias', 'penilaians', 'matrixNormalisasi')
+            compact('penginapans', 'kriterias', 'penilaians', )
         );
     }
 }

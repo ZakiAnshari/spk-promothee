@@ -87,7 +87,7 @@ class UserController extends Controller
         // Temukan data berdasarkan ID
         $users = User::findOrFail($id);
 
-        // Validasi data yang masuk
+        // Validasi data yang masuk (password optional)
         $validatedData = $request->validate([
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|max:255|unique:users,email,' . $id,
@@ -95,7 +95,15 @@ class UserController extends Controller
             'username'      => 'required|string|max:255|unique:users,username,' . $id,
             'contact'       => 'nullable|string|max:20',
             'role_id'       => 'required|exists:roles,id',
+            'password'      => 'nullable|string|min:8|confirmed',
         ]);
+
+        // Jika password diberikan, enkripsi dan sertakan dalam update
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
 
         // Perbarui data di database
         $users->update($validatedData);

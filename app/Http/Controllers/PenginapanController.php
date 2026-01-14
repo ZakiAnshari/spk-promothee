@@ -28,6 +28,12 @@ class PenginapanController extends Controller
 
     public function store(Request $request)
     {
+        // sanitize harga_penginapan: remove thousand separators so numeric validation works
+        if ($request->has('harga_penginapan')) {
+            $clean = preg_replace('/[^0-9]/', '', $request->input('harga_penginapan'));
+            $request->merge(['harga_penginapan' => $clean]);
+        }
+
         // 1️⃣ Validasi input
         $validated = $request->validate([
             'nama_penginapan'    => 'required|string|max:255',
@@ -88,6 +94,12 @@ class PenginapanController extends Controller
         $penginapan = Penginapan::find($id);
         if (!$penginapan) {
             return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
+
+        // sanitize harga_penginapan: remove thousand separators so numeric validation works
+        if ($request->has('harga_penginapan')) {
+            $clean = preg_replace('/[^0-9]/', '', $request->input('harga_penginapan'));
+            $request->merge(['harga_penginapan' => $clean]);
         }
 
         // 2️⃣ Validasi input

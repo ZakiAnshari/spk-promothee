@@ -68,20 +68,53 @@
                             </div>
                         </div>
 
-                        {{-- <div class="col-md-12">
-                            <div class="card d-flex flex-column justify-content-center align-items-center">
-                                <div class="text-center my-3">
-                                    <label for="gambar" class="form-label">Foto Penginapan</label><br>
-                                    @if ($penginapan->foto_penginapan)
-                                        <img src="{{ asset('storage/' . $penginapan->foto_penginapan) }}"
-                                            class="img-fluid rounded" alt="Foto Penginapan"
-                                            style="max-height: 300px; width: 100%; object-fit: cover; border: 1px solid #ddd;">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <label class="form-label mb-3">Foto Penginapan</label>
+
+                                    @if ($penginapan->images->count())
+                                        <div class="row g-3">
+                                            @foreach ($penginapan->images as $img)
+                                                <div class="col-md-4">
+                                                    <div class="image-wrapper">
+                                                        <img src="{{ asset('storage/' . $img->image) }}"
+                                                            alt="Foto Penginapan">
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @else
-                                        <p>Tidak ada Foto</p>
+                                        <p class="text-muted">Tidak ada Foto</p>
                                     @endif
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
+
+
+                        <style>
+                            .image-wrapper {
+                                height: 250px;
+                                width: 100%;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                background-color: #f8f9fa;
+
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .image-wrapper img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                /* potong secukupnya, TANPA zoom */
+                                display: block;
+                            }
+                        </style>
+
 
                     </div>
                 </div>

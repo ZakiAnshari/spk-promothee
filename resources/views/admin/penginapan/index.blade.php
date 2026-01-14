@@ -24,10 +24,9 @@
                                         data-bs-toggle="modal" data-bs-target="#user-edit_add-modal">
                                         <i class="bx bx-plus me-1"></i> Tambah
                                     </button>
-                                    <a href="#" class="btn btn-warning d-flex align-items-center" role="button"
-                                        >
+                                    {{-- <a href="#" class="btn btn-warning d-flex align-items-center" role="button">
                                         <i class="bx bx-printer me-1"></i> Cetak
-                                    </a>
+                                    </a> --}}
                                 </div>
 
                             </div>
@@ -92,7 +91,6 @@
                                                         </div>
 
                                                     </div>
-
                                                     <div class="col-lg-6">
 
                                                         <!-- Kontak Penginapan -->
@@ -112,13 +110,19 @@
                                                                 value="{{ old('harga_penginapan') }}">
                                                         </div>
 
-                                                        <!-- Foto Penginapan (opsional tetap) -->
-                                                        {{-- 
-                            <div class="form-group">
-                                <label class="form-label">Foto Penginapan</label>
-                                <input type="file" name="foto_penginapan" class="form-control" accept="image/*">
-                            </div>
-                            --}}
+                                                        <div class="form-group">
+                                                            <label class="form-label">Foto Penginapan</label>
+                                                            <input required type="file" name="images[]"
+                                                                class="form-control" multiple accept="image/*">
+
+                                                            <small class="text-muted">
+                                                                Dapat mengunggah lebih dari satu foto. <br> Ukuran maksimal
+                                                                2 MB
+                                                                per foto.
+                                                            </small>
+                                                        </div>
+
+
                                                     </div>
 
                                                 </div>
@@ -142,71 +146,112 @@
 
 
                             {{-- TABLE --}}
-                            <table class="table table-hover table-bordered align-middle text-nowrap mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="width:15px; ">No</th>
-                                        <th>Nama penginapan</th>
-                                        <th>Alamat</th>
-                                        <th>Jenis</th>
-                                        <th>Kontak</th>
-                                        <th>Harga</th>
-                                        <th style="width: 80px; text-align: center;">Aksi</th>
+                            {{-- DataTables CSS --}}
+                            <link rel="stylesheet"
+                                href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($penginapans  as $index => $item)
+                            <div class="table-responsive">
+                                <table id="penginapanTable"
+                                    class="table table-hover table-bordered align-middle text-nowrap mb-0">
+                                    <thead class="table-light">
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td> <!-- bukan firstItem() -->
-                                            <td>{{ $item->nama_penginapan }}</td>
-                                            <td>{{ $item->alamat_penginapan }}</td>
-                                            <td>{{ $item->jenis_penginapan }}</td>
-                                            <td>{{ $item->kontak_penginapan }}</td>
-                                            <td>Rp {{ number_format($item->harga_penginapan, 0, ',', '.') }}</td>
-
-                                            <td class="text-center">
-                                                <ul class="list-inline me-auto mb-0">
-                                                    <li class="list-inline-item align-bottom"
-                                                        style="border: 1px solid #ccc;" data-bs-toggle="tooltip"
-                                                        title="View">
-                                                        <a href="penginapan-show/{{ $item->id }}"
-                                                            class="avtar avtar-xs btn-link-secondary show-user"
-                                                            data-bs-target="#user-modal">
-                                                            <i class="ti ti-eye f-18"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item align-bottom"
-                                                        style="border: 1px solid #ccc;" data-bs-toggle="tooltip"
-                                                        title="Edit">
-                                                        <a href="#"
-                                                            class="avtar avtar-xs btn-link-primary">
-                                                            <i class="ti ti-edit-circle f-18"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item align-bottom"
-                                                        style="border: 1px solid #ccc;" data-bs-toggle="tooltip"
-                                                        title="Delete">
-                                                        <a href="javascript:void(0);"
-                                                            class="avtar avtar-xs btn-link-danger"
-                                                            onclick="confirmDeletepenginapan({{ $item->id }}, @js($item->nama_penginapan))">
-                                                            <i class="ti ti-trash f-18"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-
-
+                                            <th style="width:15px;">No</th>
+                                            <th>Nama Penginapan</th>
+                                            <th>Alamat</th>
+                                            <th>Jenis</th>
+                                            <th>Kontak</th>
+                                            <th>Harga</th>
+                                            <th style="width:80px; text-align:center;">Aksi</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8" class="text-center">Data Kosong</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($penginapans as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->nama_penginapan }}</td>
+                                                <td>{{ $item->alamat_penginapan }}</td>
+                                                <td>{{ $item->jenis_penginapan }}</td>
+                                                <td>{{ $item->kontak_penginapan }}</td>
+                                                <td>Rp {{ number_format($item->harga_penginapan, 0, ',', '.') }}</td>
 
+                                                <td class="text-center">
+                                                    <ul class="list-inline mb-0">
+                                                        <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                            title="View"
+                                                            style="border:1px solid #ccc; border-radius:4px;">
+                                                            <a href="{{ url('penginapan-show/' . $item->id) }}"
+                                                                class="avtar avtar-xs btn-link-secondary">
+                                                                <i class="ti ti-eye f-18"></i>
+                                                            </a>
+                                                        </li>
 
+                                                        <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                            title="Edit"
+                                                            style="border:1px solid #0d6efd; border-radius:4px;">
+                                                            <a href="{{ url('penginapan-edit/' . $item->id) }}"
+                                                                class="avtar avtar-xs btn-link-primary">
+                                                                <i class="ti ti-edit-circle f-18"></i>
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                            title="Delete"
+                                                            style="border:1px solid #dc3545; border-radius:4px;">
+                                                            <a href="javascript:void(0)"
+                                                                class="avtar avtar-xs btn-link-danger"
+                                                                onclick="confirmDeletePenginapan({{ $item->id }}, @js($item->nama_penginapan))">
+                                                                <i class="ti ti-trash f-18"></i>
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center">Data Kosong</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- jQuery --}}
+                            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+                            {{-- DataTables JS --}}
+                            <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+                            <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#penginapanTable').DataTable({
+                                        responsive: true,
+                                        autoWidth: false,
+                                        pageLength: 10,
+                                        lengthMenu: [5, 10, 25, 50],
+                                        ordering: true,
+                                        language: {
+                                            search: "Cari:",
+                                            lengthMenu: "Tampilkan _MENU_ data",
+                                            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                                            infoEmpty: "Menampilkan 0 data",
+                                            emptyTable: "Data Kosong",
+                                            paginate: {
+                                                first: "Awal",
+                                                last: "Akhir",
+                                                next: "›",
+                                                previous: "‹"
+                                            }
+                                        },
+                                        columnDefs: [{
+                                                orderable: false,
+                                                targets: 6
+                                            } // kolom aksi
+                                        ]
+                                    });
+                                });
+                            </script>
 
                         </div>
                     </div>
@@ -214,6 +259,8 @@
             </div>
         </div>
     </div>
+
+
     <script>
         const hargaInput = document.getElementById('harga_penginapan');
 

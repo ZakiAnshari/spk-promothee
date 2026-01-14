@@ -179,10 +179,8 @@
                             <div class="dropdown-header">
                                 <div class="d-flex mb-1">
                                     <div class="flex-shrink-0">
-
                                         <img src="{{ asset('BackEnd/dist/assets/images/user/' . (Auth::user()->jenis_kelamin == 'Perempuan' ? 'avatar-9.jpg' : 'avatar-2.jpg')) }}"
                                             alt="user-image" class="user-avtar wid-35">
-
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="mb-1"><span>{{ Auth::user()->name }}</span></h6>
@@ -241,7 +239,7 @@
                 </div>
                 <div class="col-auto my-1">
                     <ul class="list-inline footer-link mb-0">
-                        <li class="list-inline-item"><a href="">Muahammad Nurul Hidayat</a></li>
+                        <li class="list-inline-item"><a href="">Muhammad Nurul Hidayat</a></li>
                     </ul>
                 </div>
             </div>
@@ -422,6 +420,27 @@
                 if (result.isConfirmed) {
                     // Redirect ke route penghapusan berdasarkan fasilitas_id
                     window.location.href = `/penilaian-destroy/${id}`;
+                }
+            });
+        }
+    </script>
+    {{-- UNTUK MENGHAPUS SWEET-ALERT PENGINAPAN --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDeletepenginapan(id, name) {
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                html: `Penginapan <strong>"${name}"</strong> akan dihapus!`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect ke route penghapusan berdasarkan penginapan_id
+                    window.location.href = `/penginapan-destroy/${id}`;
                 }
             });
         }

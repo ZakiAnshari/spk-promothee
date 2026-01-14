@@ -14,6 +14,12 @@ class Penginapan extends Model
         'harga_penginapan'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(PenginapanImage::class);
+    }
+
+
     /**
      * Hitung nilai akhir berdasarkan matriks normalisasi
      */

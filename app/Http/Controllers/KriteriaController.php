@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
+use App\Models\Penilaian;
+use App\Models\Subkriteria;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class KriteriaController extends Controller
 {
@@ -71,8 +74,23 @@ class KriteriaController extends Controller
 
     public function destroy($id)
     { 
-        $kriterias = Kriteria::where('id',$id)->first();
-        $kriterias->delete();
+        $kriterias = Kriteria::with('subkriterias')->find($id);
+        if (! $kriterias) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
+
+        DB::transaction(function () use ($kriterias) {
+            // Delete penilaian related to this kriteria
+            Penilaian::where('kriteria_id', $kriterias->id)->delete();
+
+            // Delete subkriterias for this kriteria
+            foreach ($kriterias->subkriterias as $sub) {
+                $sub->delete();
+            }
+
+            // Finally delete the kriteria
+            $kriterias->delete();
+        });
 
         alert()->toast('Data berhasil di Hapus', 'success')->width('fit-content');
         return redirect()->route('kriteria.index');

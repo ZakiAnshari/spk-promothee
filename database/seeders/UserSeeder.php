@@ -19,17 +19,15 @@ class UserSeeder extends Seeder
         // Create roles
         $roles = [
             ['name' => 'Admin'],
-            ['name' => 'Operator'],
-            ['name' => 'Kepala Sekolah'],
-            ['name' => 'Tamu'],
+            ['name' => 'Pengelola']
         ];
         foreach ($roles as $role) {
             Roles::create($role);
         }
         // Create User
         User::create([
-            'name' => 'Zaki Anshari',
-            'username' => 'Zaki',
+            'name' => 'Muhammad Nurul Hidayat',
+            'username' => 'Dayat',
             'contact' => '082387444002',
             'role_id' => 1,
             'email' => 'admin@example.com',
@@ -41,38 +39,15 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Rina Operator',
-            'username' => 'operator',
+            'username' => 'Pengelola',
             'contact' => '081234567890',
             'role_id' => 2, // Operator Sekolah
-            'email' => 'operator@example.com',
+            'email' => 'pengelola@example.com',
             'jenis_kelamin' => 'Perempuan',
             'email_verified_at' => now(),
             'password' => Hash::make('123'),
             'remember_token' => Str::random(10),
         ]);
 
-        User::create([
-            'name' => 'Budi Kepala',
-            'username' => 'kepsek',
-            'contact' => '089876543210',
-            'role_id' => 3, // Kepala Sekolah
-            'email' => 'kepsek@example.com',
-            'jenis_kelamin' => 'Laki-Laki',
-            'email_verified_at' => now(),
-            'password' => Hash::make('123'),
-            'remember_token' => Str::random(10),
-        ]);
-
-        User::create([
-            'name' => 'Dina Tamu',
-            'username' => 'tamu',
-            'contact' => '087712345678',
-            'role_id' => 4, // Tamu
-            'email' => 'tamu@example.com',
-            'jenis_kelamin' => 'Perempuan',
-            'email_verified_at' => now(),
-            'password' => Hash::make('123'),
-            'remember_token' => Str::random(10),
-        ]);
     }
 }

@@ -101,9 +101,16 @@ class Perhitungan extends Model
                 $phiMinus += $prefBA;
             }
 
-            $phiPlus  = round($phiPlus / ($n - 1), 4);
-            $phiMinus = round($phiMinus / ($n - 1), 4);
-            $phiNet   = round($phiPlus - $phiMinus, 4);
+            if ($n > 1) {
+                $phiPlus  = round($phiPlus / ($n - 1), 4);
+                $phiMinus = round($phiMinus / ($n - 1), 4);
+                $phiNet   = round($phiPlus - $phiMinus, 4);
+            } else {
+                // With fewer than 2 alternatives there is no pairwise comparison
+                $phiPlus = 0;
+                $phiMinus = 0;
+                $phiNet = 0;
+            }
 
             $hasil[$a->id] = [
                 'leaving'  => $phiPlus,

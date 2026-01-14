@@ -8,6 +8,7 @@ use App\Models\Penginapan;
 use App\Models\Subkriteria;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
@@ -51,5 +52,20 @@ class PenilaianController extends Controller
         }
         Alert::success('Berhasil', 'Penginapan berhasil ditambahkan');
         return back();
+    }
+
+    public function destroy($fasilitas_id)
+    {
+        $exists = Penilaian::where('penginapan_id', $fasilitas_id)->exists();
+        if (! $exists) {
+            return redirect()->back()->with('error', 'Penilaian tidak ditemukan');
+        }
+
+        DB::transaction(function () use ($fasilitas_id) {
+            Penilaian::where('penginapan_id', $fasilitas_id)->delete();
+        });
+
+        alert()->toast('Penilaian berhasil dihapus', 'success')->width('fit-content');
+        return redirect()->route('penilaian.index');
     }
 }

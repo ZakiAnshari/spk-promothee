@@ -1,81 +1,83 @@
 <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
 @extends('layouts.admin')
-@section('title','Dashboard')
+@section('title', 'Dashboard')
 @section('content')
-<div class="pc-content">
-    <div class="row">
-    {{-- FASILITAS --}}
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-light">
-            <div class="card-body">
-                <h6 class="mb-3 f-w-400 text-muted">Jumlah Penginapan</h6>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="mb-0"></h2>
-                    <i class="fas fa-tools text-primary" style="font-size: 48px;"></i>
-                </div>
-                <p class="mb-0 text-muted text-sm">
-                    Total fasilitas yang tersedia saat ini dalam sistem
-                </p>
-                
-            </div>
-        </div>
-    </div>
-    {{-- KRITERIA --}}
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-light">
-            <div class="card-body">
-                <h6 class="mb-3 f-w-400 text-muted">Jumlah Kriteria</h6>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="mb-0">{{$kriteria_count}}</h2>
-                    <!-- Ikon penilaian (star) -->
-                    <i class="fas fa-star text-primary" style="font-size: 48px;"></i>
-                </div>
-                <p class="mb-0 text-muted text-sm">
-                    Menampilkan total seluruh kriteria penilaian saat ini
-                </p>                
-            </div>
-        </div>
-    </div>
-    {{-- PRIORITAS --}}
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-light">
-            <div class="card-body">
-                <h6 class="mb-3 f-w-400 text-muted">Fasilitas Rusak Berat</h6>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="mb-0">1</h2>
-                    <!-- Ikon prioritas tinggi (exclamation-circle) -->
-                    <i class="fas fa-exclamation-circle text-danger" style="font-size: 48px;"></i>
-                </div>
-                <p class="mb-0 text-muted text-sm">
-                    Tahun ini <span class="text-danger"></span> fasilitas tercatat rusakk beraat.
-                </p>
-            </div>
-        </div>
-    </div>
-    {{-- USER --}}
-    <div class="col-lg-3">
-        <div class="card shadow-sm border-light">
-            <div class="card-body">
-                <h6 class="mb-3 f-w-400 text-muted">Jumlah User</h6>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="mb-0">{{$user_count}}</h2>
-                    <!-- Ikon diubah menjadi user -->
-                    <i class="fas fa-user text-primary" style="font-size: 48px;"></i>
-                </div>
-                <p class="mb-0 text-muted text-sm">
-                    Menampilkan jumlah total user yang terdaftar dan aktif saat ini
-                </p>                
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    
-    
-    
+    <div class="pc-content">
+        <div class="row">
+            {{-- FASILITAS --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <h6 class="mb-3 f-w-400 text-muted">Jumlah Penginapan</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">{{ $penginapan_count }}</h2>
+                            <i class="fas fa-building text-primary" style="font-size:48px;"></i>
 
-    {{-- <div class="col-md-12 col-xl-8">
+                        </div>
+                        <p class="mb-0 text-muted text-sm">
+                            Total Penginapan yang tersedia saat ini dalam sistem
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            {{-- KRITERIA --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <h6 class="mb-3 f-w-400 text-muted">Jumlah Kriteria</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">{{ $kriteria_count }}</h2>
+                            <!-- Ikon penilaian (star) -->
+                            <i class="fas fa-star text-primary" style="font-size: 48px;"></i>
+                        </div>
+                        <p class="mb-0 text-muted text-sm">
+                            Menampilkan total seluruh kriteria penilaian saat ini
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{-- PRIORITAS --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <h6 class="mb-3 f-w-400 text-muted">Jumlah Sub-Kriteria</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">{{ $subkriteria_count }}</h2>
+                            <!-- Ikon prioritas tinggi (exclamation-circle) -->
+                            <i class="fas fa-list-ul text-info" style="font-size:48px;"></i>
+
+                        </div>
+                        <p class="mb-0 text-muted text-sm">
+                            Menampilkan total seluruh data sub-kriteria
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{-- USER --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-light">
+                    <div class="card-body">
+                        <h6 class="mb-3 f-w-400 text-muted">Jumlah User</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">{{ $user_count }}</h2>
+                            <!-- Ikon diubah menjadi user -->
+                            <i class="fas fa-user text-primary" style="font-size: 48px;"></i>
+                        </div>
+                        <p class="mb-0 text-muted text-sm">
+                            Menampilkan jumlah total user yang terdaftar dan aktif saat ini
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            {{-- <div class="col-md-12 col-xl-8">
         <div class="d-flex align-items-center justify-content-between mb-3">
         <h5 class="mb-0">Unique Visitor</h5>
         <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
@@ -313,9 +315,9 @@
         </div>
         </div>
     </div> --}}
+        </div>
     </div>
-</div>
 
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
 
 @endsection

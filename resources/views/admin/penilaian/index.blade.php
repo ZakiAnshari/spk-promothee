@@ -68,6 +68,7 @@
                                                             @foreach ($kriteria->subkriterias as $sub)
                                                                 <option value="{{ $sub->id }}">
                                                                     {{ $sub->subkriteria_berat }}
+                                                                    ({{ $sub->subkriteria_nama }})
                                                                 </option>
                                                             @endforeach
                                                         </select>

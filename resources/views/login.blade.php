@@ -32,6 +32,16 @@
     <link rel="stylesheet" href="{{ asset('BackEnd/dist/assets/css/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('BackEnd/dist/assets/css/style-preset.css') }}">
 
+    <style>
+        .auth-main .auth-wrapper .auth-form:after,
+        .auth-main .auth-wrapper.v3 .auth-form:after {
+            display: none !important;
+            background: transparent !important;
+            -webkit-backdrop-filter: none !important;
+            backdrop-filter: none !important;
+        }
+    </style>
+
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -45,14 +55,14 @@
     </div>
     <!-- [ Pre-loader ] End -->
 
-    <div class="auth-main">
+    <div class="auth-main" style="background-image: url('{{ asset('BackEnd/dist/assets/images/sidath-vimukthi-qSB35JVPe0s-unsplash.jpg') }}'); background-size: cover; background-position: center;">
         <div class="auth-wrapper v3 d-flex align-items-center justify-content-center"
-            style="background-color: rgba(255, 255, 255, 0.001); min-height: 100vh;">
+            style="background-color: transparent; min-height: 100vh;">
             <div class="auth-form">
                 <div class="auth-header">
                     <div class="container-fluid">
                         <a class="navbar-brand d-flex align-items-center" href="#">
-                            <strong>REKOM-INAP</strong>
+                            <strong style="color: white;font-size:19px">REKOM-INAP</strong>
                         </a>
                     </div>
                 </div>

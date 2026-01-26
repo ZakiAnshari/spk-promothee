@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
-use App\Models\Fasilitas;
 use App\Models\Penilaian;
 use App\Models\Penginapan;
 use App\Models\Perhitungan;
@@ -65,13 +64,21 @@ class PerhitunganController extends Controller
 
         $matrixNormalisasi = Perhitungan::normalisasi($penilaians, $kriterias);
 
+        $hasilPROMETHEE = Perhitungan::hitungPROMETHEE($penginapans, $kriterias, $penilaians);
+
         foreach ($penginapans as $item) {
-            $item->nilai_akhir = $item->referensi($matrixNormalisasi);
+            $item->phi_plus  = $hasilPROMETHEE[$item->id]['leaving'] ?? 0;
+            $item->phi_minus = $hasilPROMETHEE[$item->id]['entering'] ?? 0;
+            $item->phi       = $hasilPROMETHEE[$item->id]['net'] ?? 0;
         }
 
-        return view(
-            'admin.perhitungan.cetak',
-            compact('penginapans', 'kriterias', 'penilaians', )
-        );
+        // Urutkan berdasarkan Net Flow & beri ranking
+        $penginapans = $penginapans->sortByDesc('phi')->values();
+        $rank = 1;
+        foreach ($penginapans as $item) {
+            $item->ranking = $rank++;
+        }
+
+        return view('admin.perhitungan.cetak', compact('penginapans', 'kriterias', 'penilaians'));
     }
 }

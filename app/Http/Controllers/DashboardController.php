@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Kriteria;
-use App\Models\Fasilitas;
 use App\Models\Penginapan;
 use App\Models\Subkriteria;
 use Illuminate\Http\Request;

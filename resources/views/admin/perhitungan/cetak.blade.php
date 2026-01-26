@@ -40,34 +40,48 @@
 
         <div class="table-responsive">
             @php
-                // Urutkan fasilitas berdasarkan nilai_akhir secara descending (terbesar ke terkecil)
-                $ranking = $fasilitas->sortByDesc('nilai_akhir')->values();
+                // Urutkan penginapan berdasarkan Net Flow (phi) secara descending
+                $ranking = $penginapans->sortByDesc('phi')->values();
             @endphp
 
             <table class="table table-hover table-bordered align-middle text-nowrap mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>Nama Fasilitas</th>
+                        <th>Nama Penginapan</th>
                         <th>Lokasi</th>
-                        <th class="text-center">Nilai Preferensi (V)</th>
+                        <th class="text-center">Φ+ Phi Plus</th>
+                        <th class="text-center">Φ− Phi Minus</th>
+                        <th class="text-center">Φ Net Flow</th>
                         <th style="text-align: center">Rangking</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($ranking as $index => $item)
                         <tr>
-                            <td>{{ $item->nama_fasilitas }}</td>
-                            <td>{{ $item->lokasi_fasilitas }}</td>
-                            <td class="text-center">{{ number_format($item->nilai_akhir, 2) }}</td>
-                            <td style="text-align: center">
-                                {{ $index + 1 }}
-                            </td>
-
-
+                            <td>{{ $item->nama_penginapan }}</td>
+                            <td>{{ $item->alamat_penginapan }}</td>
+                            <td class="text-center">{{ number_format($item->phi_plus, 4) }}</td>
+                            <td class="text-center">{{ number_format($item->phi_minus, 4) }}</td>
+                            <td class="text-center">{{ number_format($item->phi, 4) }}</td>
+                            <td style="text-align: center">{{ $item->ranking ?? $index + 1 }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            @php
+                $top = $ranking->first();
+            @endphp
+
+            @if ($top)
+                <div class="mt-4">
+                    <div class="alert alert-success">
+                        <strong>Rekomendasi Terbaik:</strong>
+                        {{ $top->nama_penginapan }} ({{ $top->alamat_penginapan }})
+                        — Nilai Φ: {{ number_format($top->phi, 4) }}
+                    </div>
+                </div>
+            @endif
 
         </div>
 
@@ -77,7 +91,7 @@
             <div class="col-6 text-end">
                 <p class="mb-1">{{ \Carbon\Carbon::now()->translatedFormat('l') }},
                     {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
-                <p class="mb-5">Kepala Sekolah</p>
+                <p class="mb-5">Kepala Penginapan</p>
                 <p class="fw-bold text-uppercase mb-1">Tuti Yamila Sari Dewi, S.PdI, M.Pd</p>
                 <p class="mb-0">NIP: 19650415 199003 1 004</p>
             </div>

@@ -199,7 +199,7 @@
                                                             style="border:1px solid #dc3545; border-radius:4px;">
                                                             <a href="javascript:void(0)"
                                                                 class="avtar avtar-xs btn-link-danger"
-                                                                onclick="confirmDeletePenginapan({{ $item->id }}, @js($item->nama_penginapan))">
+                                                                onclick="confirmDeletepenginapan({{ $item->id }}, @js($item->nama_penginapan))">
                                                                 <i class="ti ti-trash f-18"></i>
                                                             </a>
                                                         </li>

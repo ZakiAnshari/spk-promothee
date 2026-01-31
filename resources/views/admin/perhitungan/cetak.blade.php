@@ -91,7 +91,7 @@
                 <p class="mb-1">{{ \Carbon\Carbon::now()->translatedFormat('l') }},
                     {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
                 <p class="mb-5">Kepala Penginapan</p>
-                <p class="fw-bold text-uppercase mb-1">Tuti Yamila Sari Dewi, S.PdI, M.Pd</p>
+                <p class="fw-bold text-uppercase mb-1">{{ auth()->user()->name ?? 'Nama Pengguna' }}</p>
                 <p class="mb-0">NIP: 19650415 199003 1 004</p>
             </div>
         </div>

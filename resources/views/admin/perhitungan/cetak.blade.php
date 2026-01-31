@@ -31,10 +31,9 @@
     <div class="container py-4">
         <div class="text-center mb-4">
             <h2 class="fw-bold">LAPORAN DATA PERHITUNGAN</h2>
-            <h5 class="text-muted">
-                Sistem Pendukung Keputusan Penentuan Prioritas Perbaikan Fasilitas Sekolah <br>
-                Menggunakan Metode SAW di SMP Negeri 6 Bukittinggi
-            </h5>
+            <h5 class="">Sistem Pendukung Keputusan Pemilihan Penginapan
+                Menggunakan Metode
+                PROMETHEE</h5>
         </div>
         <br>
 

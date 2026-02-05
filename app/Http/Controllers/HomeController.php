@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('/login'); // pastikan view 'home.blade.php' ada di folder 'resources/views/'
+        return view('home');
     }
 }

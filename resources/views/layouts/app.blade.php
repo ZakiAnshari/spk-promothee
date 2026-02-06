@@ -10,7 +10,7 @@
     
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{ asset('Frontend/assets/css/bootstrap-5.0.0-alpha-2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Frontend/assets/assets/css/LineIcons.2.0.css') }}" />
+    <link rel="stylesheet" href="{{ asset('Frontend/assets/css/LineIcons.2.0.css') }}" />
     <link rel="stylesheet" href="{{ asset('Frontend/assets/css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('Frontend/assets/css/lindy-uikit.css') }}" />
 </head>
@@ -149,7 +149,7 @@
                         <div class="col-md-6">
                             <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                                 <div class="icon">
-                                    <i class="lni lni-building"></i>
+                                    <i class="lni lni-apartment"></i>
                                 </div>
                                 <div class="content">
                                     <h5 class="mb-25">Data Penginapan</h5>
@@ -171,7 +171,7 @@
                         <div class="col-md-6">
                             <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                                 <div class="icon">
-                                    <i class="lni lni-check-circle"></i>
+                                    <i class="lni lni-star"></i>
                                 </div>
                                 <div class="content">
                                     <h5 class="mb-25">Penilaian</h5>
@@ -192,12 +192,17 @@
                         </div>
                     </div>
 
-                </div>
+                {{-- </div><div class="col-md-6">
+                    <a href="/penginapan" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="lni lni-building"></i> Data Penginapan
+                    </a>
+                </div> --}}
             </div>
+            
         </div>
-        <div class="feature-img wow fadeInLeft" data-wow-delay=".2s">
-            <img src="assets/img/feature/feature-2-1.svg" alt="">
-        </div>
+        {{-- <div class="feature-img wow fadeInLeft" data-wow-delay=".2s">
+            <img src="{{ asset('Frontend/assets/img/feature/feature-2-1.svg') }}" alt="">
+        </div> --}}
     </section>
     <!-- ========================= feature style-2 end ========================= -->
 
@@ -207,7 +212,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-image wow fadeInLeft" data-wow-delay=".2s">
-                        <img src="assets/img/about/about-3/about-img.jpg" alt="">
+                        <img src="{{ asset('Frontend/assets/img/about/about-3/about-img.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -216,21 +221,7 @@
                             <h3 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Tentang Metode PROMETHEE</h3>
                             <p class="wow fadeInUp" data-wow-delay=".4s">PROMETHEE (Preference Ranking Organization Method for Enrichment Evaluation) adalah metode pengambilan keputusan multi-kriteria yang membantu menentukan alternatif terbaik dari beberapa pilihan berdasarkan kriteria yang telah ditetapkan.</p>
                         </div>
-                        <div class="counter-up-wrapper mb-40 wow fadeInUp" data-wow-delay=".6s">
-                            <div class="single-counter">
-                                <h4>Akurat</h4>
-                                <h6>Perhitungan Presisi</h6>
-                            </div>
-                            <div class="single-counter">
-                                <h4>Transparan</h4>
-                                <h6>Proses Terbuka</h6>
-                            </div>
-                            <div class="single-counter">
-                                <h4>Sistematis</h4>
-                                <h6>Berbasis Data</h6>
-                            </div>
-                        </div>
-                        <a href="#fitur" class="button button-lg radius-3 wow fadeInUp" data-wow-delay=".7s">Lihat Fitur Selengkapnya</a>
+                       
                     </div>
                 </div>
             </div>

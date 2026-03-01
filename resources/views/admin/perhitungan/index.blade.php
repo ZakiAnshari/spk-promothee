@@ -165,7 +165,6 @@
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Nama Penginapan</th>
-
                                                         @foreach ($kriterias as $kriteria)
                                                             <th>
                                                                 ({{ $kriteria->kriteria_code }})
@@ -176,7 +175,6 @@
                                                 </thead>
                                                 <tbody>
                                                     @php $no = 1; @endphp
-
                                                     @foreach ($penginapans as $item)
                                                         @php
                                                             // Ambil penilaian berdasarkan penginapan
@@ -214,7 +212,6 @@
                                                             </tr>
                                                         @endif
                                                     @endforeach
-
                                                     @if ($no === 1)
                                                         <tr>
                                                             <td colspan="{{ 2 + count($kriterias) }}"
@@ -226,8 +223,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
-
                                     </div>
                                 </div>
 

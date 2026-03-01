@@ -7,7 +7,7 @@
     <title>@yield('title', 'Rekam Inap')</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{ asset('Frontend/assets/css/bootstrap-5.0.0-alpha-2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('Frontend/assets/css/LineIcons.2.0.css') }}" />
@@ -70,10 +70,12 @@
                                         </li>
                                     </ul>
                                     @auth
-                                        <a href="/dashboard" class="button button-sm radius-10 d-none d-lg-flex" style="background-color: #666; margin-right: 10px;">
+                                        <a href="/dashboard" class="button button-sm radius-10 d-none d-lg-flex"
+                                            style="background-color: #666; margin-right: 10px;">
                                             Dashboard
                                         </a>
-                                        <a href="/logout" class="button button-sm radius-10 d-none d-lg-flex" style="background-color: #dc3545;">
+                                        <a href="/logout" class="button button-sm radius-10 d-none d-lg-flex"
+                                            style="background-color: #dc3545;">
                                             Logout
                                         </a>
                                     @else
@@ -99,18 +101,21 @@
             <div class="container">
                 <div class="row align-items-end">
                     <div class="col-lg-6">
-                        <div class="hero-content-wrapper">
+                        <div class="hero-content-wrapper" style="padding-top:104px; ">
                             <h4 class="wow fadeInUp" data-wow-delay=".2s">Selamat Datang</h4>
-                            <h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">Sistem Pendukung Keputusan Penginapan</h2>
-                            <p class="mb-50 wow fadeInUp" data-wow-delay=".6s">Temukan jenis penginapan terbaik sesuai kebutuhan Anda di Kecamatan Katu Aro, Kabupaten Kerinci menggunakan metode PROMETHEE berbasis web.</p>
+                            <h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">Sistem Pendukung Keputusan Penginapan
+                            </h2>
+                            <p class="mb-50 wow fadeInUp" data-wow-delay=".6s">Temukan jenis penginapan terbaik sesuai
+                                kebutuhan Anda di Kecamatan Katu Aro, Kabupaten Kerinci menggunakan metode PROMETHEE
+                                berbasis web.</p>
                             <div class="buttons">
                                 @auth
-                                    <a href="/penginapan"
-                                        class="button button-lg radius-10 wow fadeInUp" data-wow-delay=".7s">Lihat Data Penginapan
+                                    <a href="/penginapadan" class="button button-lg radius-10 wow fadeInUp"
+                                        data-wow-delay=".7s">Lihat Data Penginapan
                                     </a>
                                 @else
-                                    <a href="/login"
-                                        class="button button-lg radius-10 wow fadeInUp" data-wow-delay=".7s">Mulai Sekarang
+                                    <a href="/login" class="button button-lg radius-10 wow fadeInUp"
+                                        data-wow-delay=".7s">Mulai Sekarang
                                     </a>
                                 @endauth
                             </div>
@@ -124,11 +129,73 @@
                         </div>
                     </div>
                 </div>
+
+                @isset($penginapans)
+                    @php
+                        // Jika objek penginapans memiliki properti phi, urutkan untuk menentukan ranking
+                        $ranking = $penginapans->sortByDesc('phi')->values();
+                    @endphp
+
+                    <div class="row mt-5">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered align-middle text-nowrap mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Penginapan</th>
+                                            <th>Lokasi</th>
+                                            <th class="text-center">Φ+ Phi Plus</th>
+                                            <th class="text-center">Φ− Phi Minus</th>
+                                            <th class="text-center">Φ Net Flow</th>
+                                            <th style="text-align: center">Rangking</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($penginapans as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->nama_penginapan }}</td>
+                                                <td>{{ $item->alamat_penginapan ?? '-' }}</td>
+                                                <td class="text-center">{{ number_format($item->phi_plus ?? 0, 4) }}</td>
+                                                <td class="text-center">{{ number_format($item->phi_minus ?? 0, 4) }}</td>
+                                                <td class="text-center">{{ number_format($item->phi ?? 0, 4) }}</td>
+                                                <td style="text-align: center">{{ $item->ranking ?? $loop->iteration }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center">Data Kosong</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @php
+                        $top = $ranking->first();
+                    @endphp
+
+                    @if ($top)
+                        <div class="mt-4">
+                            <div class="alert alert-success">
+                                <strong>Rekomendasi Terbaik : </strong>
+                                {{ $top->nama_penginapan }} ({{ $top->alamat_penginapan }})
+                                — Nilai Φ: {{ number_format($top->phi ?? 0, 4) }}
+                            </div>
+                        </div>
+                    @endif
+
+                @endisset
             </div>
         </div>
+
+
         <!-- ========================= hero-2 end ========================= -->
 
     </section>
+
+
     <!-- ========================= hero-section-wrapper-2 end ========================= -->
 
     <!-- ========================= feature style-2 start ========================= -->
@@ -140,7 +207,8 @@
                         <div class="col-xl-7 col-lg-10 col-md-9">
                             <div class="section-title mb-60">
                                 <h3 class="mb-15 wow fadeInUp" data-wow-delay=".2s">Fitur Sistem SPK</h3>
-                                <p class="wow fadeInUp" data-wow-delay=".4s">Kelola data penginapan, kriteria, penilaian dan dapatkan rekomendasi terbaik menggunakan metode PROMETHEE</p>
+                                <p class="wow fadeInUp" data-wow-delay=".4s">Kelola data penginapan, kriteria,
+                                    penilaian dan dapatkan rekomendasi terbaik menggunakan metode PROMETHEE</p>
                             </div>
                         </div>
                     </div>
@@ -153,7 +221,8 @@
                                 </div>
                                 <div class="content">
                                     <h5 class="mb-25">Data Penginapan</h5>
-                                    <p>Kelola dan lihat daftar lengkap jenis penginapan yang tersedia di Kecamatan Katu Aro</p>
+                                    <p>Kelola dan lihat daftar lengkap jenis penginapan yang tersedia di Kecamatan Katu
+                                        Aro</p>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +244,8 @@
                                 </div>
                                 <div class="content">
                                     <h5 class="mb-25">Penilaian</h5>
-                                    <p>Berikan penilaian untuk setiap penginapan berdasarkan kriteria yang telah ditetapkan</p>
+                                    <p>Berikan penilaian untuk setiap penginapan berdasarkan kriteria yang telah
+                                        ditetapkan</p>
                                 </div>
                             </div>
                         </div>
@@ -186,21 +256,22 @@
                                 </div>
                                 <div class="content">
                                     <h5 class="mb-25">Perhitungan PROMETHEE</h5>
-                                    <p>Sistem secara otomatis menghitung dan merangking penginapan terbaik menggunakan metode PROMETHEE</p>
+                                    <p>Sistem secara otomatis menghitung dan merangking penginapan terbaik menggunakan
+                                        metode PROMETHEE</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                {{-- </div><div class="col-md-6">
+                    {{-- </div><div class="col-md-6">
                     <a href="/penginapan" class="btn btn-primary btn-lg w-100 mb-3">
                         <i class="lni lni-building"></i> Data Penginapan
                     </a>
                 </div> --}}
+                </div>
+
             </div>
-            
-        </div>
-        {{-- <div class="feature-img wow fadeInLeft" data-wow-delay=".2s">
+            {{-- <div class="feature-img wow fadeInLeft" data-wow-delay=".2s">
             <img src="{{ asset('Frontend/assets/img/feature/feature-2-1.svg') }}" alt="">
         </div> --}}
     </section>
@@ -219,9 +290,12 @@
                     <div class="about-content-wrapper">
                         <div class="section-title mb-40">
                             <h3 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Tentang Metode PROMETHEE</h3>
-                            <p class="wow fadeInUp" data-wow-delay=".4s">PROMETHEE (Preference Ranking Organization Method for Enrichment Evaluation) adalah metode pengambilan keputusan multi-kriteria yang membantu menentukan alternatif terbaik dari beberapa pilihan berdasarkan kriteria yang telah ditetapkan.</p>
+                            <p class="wow fadeInUp" data-wow-delay=".4s">PROMETHEE (Preference Ranking Organization
+                                Method for Enrichment Evaluation) adalah metode pengambilan keputusan multi-kriteria
+                                yang membantu menentukan alternatif terbaik dari beberapa pilihan berdasarkan kriteria
+                                yang telah ditetapkan.</p>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -237,7 +311,8 @@
                     <div class="col-xl-12">
                         <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
                             <h6>Sistem Pendukung Keputusan Penginapan</h6>
-                            <p class="desc">Sistem ini dirancang untuk membantu menentukan jenis penginapan terbaik di Kecamatan Katu Aro, Kabupaten Kerinci menggunakan metode PROMETHEE berbasis web.</p>
+                            <p class="desc">Sistem ini dirancang untuk membantu menentukan jenis penginapan terbaik
+                                di Kecamatan Katu Aro, Kabupaten Kerinci menggunakan metode PROMETHEE berbasis web.</p>
                         </div>
                     </div>
                 </div>
